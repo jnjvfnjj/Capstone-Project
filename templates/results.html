@@ -1,0 +1,51 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<img src="{% static 'images/logo.png' %}" alt="Logo">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ищите вуз мечты? Мы поможем вам найти идеальное место для получения знаний и развития карьеры.">
+<meta name="author" content="Поиск вузов">
+<title>Поиск вузов</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Результаты поиска</h1>
+
+        <div class="row">
+            {% for university in universities %}
+                <div class="col-md-4" style="margin-bottom: 20px;">
+                    <div class="university-card">
+                        <img src="{{ university.image_url|default:'https://avatars.dzeninfra.ru/get-zen_doc/1925603/pub_5eb83e950481e006c6ca18ee_5eb959b5d86ce72cb4b1cc1c/scale_1200' }}" alt="{{ university.name }}" style="width: 300px; height: 200px;">
+                        <div class="university-card-body">
+                            <h5>{{ university.name }}</h5>
+                            <p>
+                                <strong>Страна:</strong> {{ university.country }}<br>
+                                <strong>Стоимость обучения:</strong> {{ university.tuition_fee }} $
+                            </p>
+                            <a href="/university/{{ university.id }}/" class="btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center">К сожалению, по вашему запросу ничего не найдено.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        <div class="pagination">
+            {% if universities.has_previous %}
+                <a href="?page=1">Первая</a>
+                <a href="?page={{ universities.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+            <span>Страница {{ universities.number }} из {{ universities.paginator.num_pages }}</span>
+            {% if universities.has_next %}
+                <a href="?page={{ universities.next_page_number }}">Следующая</a>
+                <a href="?page={{ universities.paginator.num_pages }}">Последняя</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

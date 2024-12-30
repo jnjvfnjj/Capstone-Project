@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ university.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>{{ university.name }}</h1>
+        <img src="https://mospolytech.ru/upload/resize_cache/iblock/35b/2200_990_0/img_5037.jpg" height="600" alt="">
+        <p><strong>Страна:</strong> {{ university.country }}</p>
+        <p><strong>Специализация:</strong> {{ university.specialization }}</p>
+        <p><strong>Стоимость обучения:</strong> {{ university.tuition_fee }} сом</p>
+        <p><strong>Описание:</strong> {{university.description}}</p>
+
+
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comment">Комментарий:</label>
+                    <textarea name="comment" id="comment" placeholder="Напишите ваш комментарий..." class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary
